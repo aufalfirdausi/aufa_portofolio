@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-serif);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.portfolio {
+  --pad: clamp(24px, 6.2vw, 73px);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.label-caps {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.link-hover {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  padding-bottom: 2px;
+}
+.link-hover:hover {
+  background-size: 100% 1px;
+}
+
+.title {
+  font-size: min(8vw, 11.5vh, 112px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.08em;
+}
+@media (max-width: 767px) {
+  .title {
+    font-size: min(12.5vw, 56px);
+  }
+}
+
+.cta .arrow {
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.cta:hover .arrow {
+  transform: translateX(8px);
+}
+
+/* Text enter animations (each element sets --d for its stagger index) */
+.rise {
+  animation: rise 1s cubic-bezier(0.19, 1, 0.22, 1) both;
+  animation-delay: calc(var(--d, 0) * 70ms + 150ms);
+}
+.wipe {
+  animation: wipe 1.2s cubic-bezier(0.19, 1, 0.22, 1) both;
+  animation-delay: calc(var(--d, 0) * 70ms + 50ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
+@keyframes wipe {
+  from {
+    clip-path: polygon(0 0, 0 0, -40% 100%, 0 100%);
+    transform: translateX(-24px) skewX(-6deg);
+  }
+  to {
+    clip-path: polygon(0 0, 140% 0, 100% 100%, 0 100%);
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .wipe {
+    animation: none;
+  }
+}
